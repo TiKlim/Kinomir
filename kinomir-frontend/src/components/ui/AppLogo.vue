@@ -16,7 +16,7 @@ defineEmits(['click'])
     font-size: 16px;
     color: #00B2FF;
     font-family: 'Unbounded', sans-serif;
-    border: none;
+    border: 2px solid #00B2FF;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
