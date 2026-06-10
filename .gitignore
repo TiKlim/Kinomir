@@ -1,0 +1,30 @@
+# Git ignore file 
+# Build results
+[Bb]in/
+[Oo]bj/
+# Rider/IDE
+.idea/
+*.sln.iml
+# NuGet packages
+*.nupkg
+*.snupkg
+# User-specific files
+*.user
+*.suo
+*.userosscache
+# OS generated files
+Thumbs.db
+.DS_Store
+# Vue
+node_modules/
+dist/
+.env.local
+.env.*.local
+# Database
+kinomir-database/postgres-data/
+*.db
+*.sqlite
+.env
+*.env
+appsettings.Production.json
+appsettings.Development.json 
