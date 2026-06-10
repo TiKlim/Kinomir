@@ -44,7 +44,7 @@
         <template #right>
             <div class="right-panel">
                 <AppButton disabled class="used-button">Фильмы</AppButton>
-                <AppButton class="app-button">Расписание</AppButton>
+                <AppButton class="app-button" @click="goToSessions">Расписание</AppButton>
                 <AppButton class="app-button">Акции</AppButton>
                 <AppButton class="app-button">Новости</AppButton>
             </div>
@@ -92,6 +92,10 @@ const goToMovie = (movieId) => {
 
 const goToMain = () => {
     router.push('/')
+}
+
+const goToSessions = () => {
+    router.push('/sessions')
 }
 
 onMounted(() => {

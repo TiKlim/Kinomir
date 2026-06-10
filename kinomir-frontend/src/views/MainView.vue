@@ -43,7 +43,7 @@
         <template #right>
             <div class="right-panel">
                 <AppButton class="app-button" @click="goToMovies">Фильмы</AppButton>
-                <AppButton class="app-button">Расписание</AppButton>
+                <AppButton class="app-button" @click="goToSessions">Расписание</AppButton>
                 <AppButton class="app-button">Акции</AppButton>
                 <AppButton class="app-button">Новости</AppButton>
             </div>
@@ -87,6 +87,10 @@ const loadMovies = async () => {
 // Переход на страницу фильма
 const goToMovies = () => {
     router.push('/movies')
+}
+
+const goToSessions = () => {
+    router.push('/sessions')
 }
 
 onMounted(() => {
