@@ -3,27 +3,26 @@
         <!-- Левая колонка -->
         <template #left>
             <div class="left-panel">
+                <!-- Лого -->
                 <AppLogo class="special-button" text-color="#00B2FF" font-size="46px">
                     <span class="logo-text">
                         КИН<img src="@/assets/theaters.svg" class="inline-icon">МИР
                     </span>
                 </AppLogo>
+                <!-- Кнопка -->
                 <AppButton class="app-button" @click="goToMain">Главная</AppButton>
             </div>
         </template>
-
         <!-- Центральная колонка -->
         <template #center>
             <!-- Состояние загрузки -->
             <div v-if="loading" class="loading-state">
                 Загрузка фильмов...
             </div>
-            
             <!-- Если фильмов нет -->
             <div v-else-if="movies.length === 0" class="empty-state">
                 Скоро здесь появятся новые фильмы
             </div>
-            
             <!-- Сетка с фильмами -->
             <div v-else class="movies-grid">
                 <MovieCard 
@@ -35,11 +34,9 @@
                     :year="movie.movieReleaseYear"
                     :duration="movie.movieDuration"
                     :ageRating="movie.movieAgeRaiting"
-                    @click="goToMovie"
-                />
+                    @click="goToMovie"/>
             </div>
         </template>
-
         <!-- Правая колонка -->
         <template #right>
             <div class="right-panel">
@@ -53,6 +50,7 @@
 </template>
 
 <script setup>
+// Импорты
 import MainLayout from '@/components/layouts/MainLayout.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppLogo from '@/components/ui/AppLogo.vue';
@@ -60,13 +58,11 @@ import MovieCard from '@/components/ui/MovieCard.vue';
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
+// Router
 const router = useRouter()
-
 // Хранение фильмов
 const movies = ref([])
 const loading = ref(true)
-
 // Загрузка фильмов
 const loadMovies = async () => {
     loading.value = true
@@ -83,12 +79,10 @@ const loadMovies = async () => {
         loading.value = false
     }
 }
-
 // Переход на страницу фильма
 const goToMovie = (movieId) => {
     router.push(`/movie/${movieId}`)
 }
-
 
 const goToMain = () => {
     router.push('/')
@@ -113,11 +107,11 @@ onMounted(() => {
     padding: 0;
     box-sizing: border-box;
 }
-
+/* Стиль статичной выбранной кнопки */
 .used-button {
     background: #00B2FF80;
 }
-
+/* Стиль заголовка */
 .app-title {
     text-align: left;
     padding: 16px;
@@ -130,7 +124,7 @@ onMounted(() => {
     gap: 24px;
     padding: 16px;
 }
-
+/* Стиль лого */
 .logo-text {
     display: inline-flex;
     align-items: center;
@@ -147,7 +141,6 @@ onMounted(() => {
 body {
     font-family: Arial, sans-serif;
 }
-
 /* Стили для левого меню */
 .left-panel {
     display: flex;
@@ -156,7 +149,6 @@ body {
     align-items: center;
     margin-top: 15px;
 }
-
 /* Стили для правой панели */
 .right-panel {
     color: white;

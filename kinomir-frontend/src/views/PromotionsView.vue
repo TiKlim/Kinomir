@@ -1,17 +1,21 @@
 <template>
     <MainLayout>
+        <!-- Левая панель -->
         <template #left>
             <div class="left-panel">
+                <!-- Лого -->
                 <AppLogo class="special-button" text-color="#00B2FF" font-size="46px">
                     <span class="logo-text">
                         КИН<img src="@/assets/theaters.svg" class="inline-icon">МИР
                     </span>
                 </AppLogo>
+                <!-- Кнопка -->
                 <AppButton class="app-button" @click="goToMain">Главная</AppButton>
             </div>
         </template>
-
+        <!-- Центральная панель -->
         <template #center>
+            <!-- Заглушка -->
             <div v-if="loading" class="loading-state">
                 Загрузка акций...
             </div>
@@ -19,7 +23,7 @@
             <div v-else-if="promotions.length === 0" class="empty-state">
                 Акций пока нет
             </div>
-
+            <!-- Контент -->
             <div v-else class="promotions-list">
                 <div v-for="promo in promotions" :key="promo.promotionId" class="promotion-card">
                     <p class="promotion-content">{{ promo.promotionTitle }}</p>
@@ -27,7 +31,7 @@
                 </div>
             </div>
         </template>
-
+        <!-- Правая панель -->
         <template #right>
             <div class="right-panel">
                 <AppButton class="app-button" @click="goToMovies">Фильмы</AppButton>
@@ -40,16 +44,16 @@
 </template>
 
 <script setup>
+// Импорты
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import AppLogo from '@/components/ui/AppLogo.vue'
-import AppTitle from '@/components/ui/AppTitle.vue'
-
+// Router
 const router = useRouter()
-
+// Загрузка акций из БД
 const promotions = ref([])
 const loading = ref(true)
 
@@ -66,7 +70,7 @@ const loadPromotions = async () => {
         loading.value = false
     }
 }
-
+// Переходы по страницам
 const goToMain = () => router.push('/')
 const goToMovies = () => router.push('/movies')
 const goToSchedule = () => router.push('/sessions')
@@ -78,12 +82,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Стиль заголовка */
 .app-title {
     text-align: left;
     padding: 16px;
     margin-top: 0px;
 }
-
+/* Стиль контента */
 .promotions-list {
     display: flex;
     flex-direction: column;
@@ -116,7 +121,6 @@ onMounted(() => {
     padding: 60px;
     font-size: 1.2rem;
 }
-
 /* Стили для левого меню */
 .left-panel {
     display: flex;
@@ -125,7 +129,6 @@ onMounted(() => {
     align-items: center;
     margin-top: 15px;
 }
-
 /* Стили для правой панели */
 .right-panel {
     color: white;
@@ -135,7 +138,7 @@ onMounted(() => {
     align-items: center;
     margin-top: 15px;
 }
-
+/* Стиль лого */
 .logo-text {
     display: inline-flex;
     align-items: center;
@@ -148,7 +151,7 @@ onMounted(() => {
     display: block;
     margin: 0 2px;
 }
-
+/* Стиль статичной выбранной кнопки */
 .used-button {
     background: #00B2FF80;
 }

@@ -1,16 +1,19 @@
 <template>
     <MainLayout>
+        <!-- Левая панель -->
         <template #left>
             <div class="left-panel">
+                <!-- Лого -->
                 <AppLogo class="special-button" text-color="#00B2FF" font-size="46px">
                     <span class="logo-text">
                         КИН<img src="@/assets/theaters.svg" class="inline-icon">МИР
                     </span>
                 </AppLogo>
+                <!-- Кнопка -->
                 <AppButton class="app-button" @click="goToMain">Главная</AppButton>
             </div>
         </template>
-
+        <!-- Центральная панель -->
         <template #center>
             <AppTitle size="large" class="app-title">Расписание сеансов</AppTitle>
             <div class="schedule-header">
@@ -25,17 +28,14 @@
                     </select>
                 </div>
             </div>
-
             <!-- Состояние загрузки -->
             <div v-if="loading" class="loading-state">
                 Загрузка расписания...
             </div>
-
             <!-- Если нет сеансов -->
             <div v-else-if="schedule.length === 0" class="empty-state">
                 На ближайшие дни сеансов нет
             </div>
-
             <!-- Список карточек расписания -->
             <div v-else class="schedule-list">
                 <SessionCard v-for="movie in schedule"
@@ -48,7 +48,7 @@
                 @select-time="onSelectTime"/>
             </div>
         </template>
-
+        <!-- Правая панель -->
         <template #right>
             <div class="right-panel">
                 <AppButton class="app-button" @click="goToMovies">Фильмы</AppButton>
@@ -61,6 +61,7 @@
 </template>
 
 <script setup>
+// Импорты
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
@@ -69,9 +70,9 @@ import AppButton from '@/components/ui/AppButton.vue'
 import AppLogo from '@/components/ui/AppLogo.vue'
 import SessionCard from '@/components/ui/SessionCard.vue'
 import AppTitle from '@/components/ui/AppTitle.vue';
-
+// Router
 const router = useRouter()
-
+// Загрузка данных из БД
 const schedule = ref([])
 const theaters = ref([])
 const selectedTheater = ref(null)
@@ -110,7 +111,7 @@ const onSelectTime = (sessionData) => {
     // sessionData = { sessionId: 21, date: "2026-04-12", time: "09:00" }
     router.push(`/hall?sessionId=${sessionData.sessionId}&date=${sessionData.date}&time=${sessionData.time}`)
 }
-
+// Переход по страницам
 const goToMain = () => router.push('/')
 const goToMovies = () => router.push('/movies')
 const goToPromotions = () => router.push('/promotions')
@@ -123,19 +124,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
-
+/* Стиль header */
 .schedule-header {
     padding: 20px;
     color: white;
 }
-
+/* Стиль заголовка */
 .app-title {
     text-align: left;
     padding: 16px;
     margin-top: 0px;
 }
-
+/* Стиль выбора по кинотеатрам */
 .theater-filter {
     display: flex;
     align-items: center;
@@ -171,7 +171,6 @@ onMounted(() => {
     padding: 60px;
     font-size: 1.2rem;
 }
-
 /* Стили для левого меню */
 .left-panel {
     display: flex;
@@ -180,7 +179,6 @@ onMounted(() => {
     align-items: center;
     margin-top: 15px;
 }
-
 /* Стили для правой панели */
 .right-panel {
     color: white;
@@ -190,7 +188,7 @@ onMounted(() => {
     align-items: center;
     margin-top: 15px;
 }
-
+/* Стиль лого */
 .logo-text {
     display: inline-flex;
     align-items: center;
@@ -203,7 +201,7 @@ onMounted(() => {
     display: block;
     margin: 0 2px;
 }
-
+/* Стиль статичной выбранной кнопки */
 .used-button {
     background: #00B2FF80;
 }

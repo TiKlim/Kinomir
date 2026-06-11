@@ -15,6 +15,7 @@ defineProps({
 </script>
 
 <style scoped>
+/* Стиль заголовка */
 .app-title {
     color: white;
     margin: 0;
@@ -22,17 +23,17 @@ defineProps({
     text-align: center;
     margin-top: 35px;
 }
-
+/* Стиль для маленького размера */
 .app-title.small {
     font-size: 24px;
     line-height: 28px;
 }
-
+/* Стиль для среднего размера */
 .app-title.medium {
     font-size: 28px;
     line-height: 32px;
 }
-
+/* Стиль для большого размера */
 .app-title.large {
     font-size: 32px;
     line-height: 36px;

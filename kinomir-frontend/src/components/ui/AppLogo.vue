@@ -10,6 +10,7 @@ defineEmits(['click'])
 </script>
 
 <style scoped>
+/* Стиль логотипа */
 .logo-button {
     background: #11111180;
     backdrop-filter: blur(4px);

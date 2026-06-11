@@ -1,5 +1,6 @@
 <template>
     <div class="movie-card" @click="handleClick">
+        <!-- Постер -->
         <div class="poster-wrapper">
             <img 
                 :src="posterUrl" 
@@ -7,6 +8,7 @@
                 class="movie-poster"
                 @error="handleImageError">
         </div>
+        <!-- Информация о фильме -->
         <div class="movie-info">
             <h3 class="movie-title">{{ title }}</h3>
             <p v-if="ageRating" class="movie-age">{{ ageRating }}</p>
@@ -15,6 +17,7 @@
 </template>
 
 <script setup>
+// Пропсы
 const props = defineProps({
     id: {
         type: Number,
@@ -54,6 +57,7 @@ const handleImageError = (event) => {
 </script>
 
 <style scoped>
+/* Стиль карточки */
 .movie-card {
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -63,17 +67,17 @@ const handleImageError = (event) => {
     overflow: hidden;
     width: 100%;
 }
-
+/* Стиль при наведении на кнопку */
 .movie-card:hover {
     transform: scale(1.02);
     background: #6BD2FF80;
 }
-
+/* Стиль при нажатии на кнопку */
 .movie-card:active {
     transform: scale(1.05);
     background: #00B2FF80;
 }
-
+/* Стиль постера */
 .poster-wrapper {
     position: relative;
     width: 100%;
@@ -89,7 +93,7 @@ const handleImageError = (event) => {
     height: 100%;
     object-fit: cover;
 }
-
+/* Стиль для информации о фильме */
 .movie-info {
     padding: 12px;
     text-align: center;

@@ -10,7 +10,6 @@
                 </AppLogo>
             </div>
         </template>
-
         <!-- Центральная колонка -->
         <template #center>
             <!-- Заголовок -->
@@ -19,16 +18,13 @@
             <div v-if="loading" class="loading-state">
                 Загрузка фильмов...
             </div>
-            
             <!-- Если фильмов нет -->
             <div v-else-if="movies.length === 0" class="empty-state">
                 Скоро здесь появятся новые фильмы
             </div>
-            
             <!-- Сетка с фильмами -->
             <div v-else class="movies-grid">
-                <MovieCard 
-                    v-for="movie in movies" 
+                <MovieCard v-for="movie in movies" 
                     :key="movie.movieId"
                     :id="movie.movieId"
                     :title="movie.movieTitle"
@@ -38,7 +34,6 @@
                     :ageRating="movie.movieAgeRaiting"/>
             </div>
         </template>
-
         <!-- Правая колонка -->
         <template #right>
             <div class="right-panel">
@@ -52,6 +47,7 @@
 </template>
 
 <script setup>
+// Импорты
 import MainLayout from '@/components/layouts/MainLayout.vue';
 import AppButton from '@/components/ui/AppButton.vue';
 import AppLogo from '@/components/ui/AppLogo.vue';
@@ -60,13 +56,11 @@ import MovieCard from '@/components/ui/MovieCard.vue';
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
+// Router
 const router = useRouter()
-
 // Хранение фильмов
 const movies = ref([])
 const loading = ref(true)
-
 // Загрузка фильмов
 const loadMovies = async () => {
     loading.value = true
@@ -83,7 +77,6 @@ const loadMovies = async () => {
         loading.value = false
     }
 }
-
 // Переход на страницу фильма
 const goToMovies = () => {
     router.push('/movies')
@@ -108,20 +101,20 @@ onMounted(() => {
     padding: 0;
     box-sizing: border-box;
 }
-
+/* Стиль для заголовка */
 .app-title {
     text-align: left;
     padding: 16px;
     margin-top: 0px;
 }
-
+/* Стиль для списка фильмов */
 .movies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(306px, 1fr));
     gap: 24px;
     padding: 16px;
 }
-
+/* Стиль для лого */
 .logo-text {
     display: inline-flex;
     align-items: center;
@@ -138,7 +131,6 @@ onMounted(() => {
 body {
     font-family: Arial, sans-serif;
 }
-
 /* Стили для левой панели */
 .left-panel {
     display: flex;
@@ -147,7 +139,6 @@ body {
     align-items: center;
     margin-top: 15px;
 }
-
 /* Стили для правой панели */
 .right-panel {
     color: white;

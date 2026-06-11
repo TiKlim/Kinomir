@@ -1,14 +1,16 @@
 <template>
     <div class="schedule-card">
+        <!-- Постер -->
         <div class="card-poster">
             <img :src="posterUrl" :alt="title">
         </div>
-        
+        <!-- Контент карточки -->
         <div class="card-info">
+            <!-- Информация о фильме -->
             <div class="card-header">
                 <h3 class="movie-title">{{ title }} | {{ ageRating }}</h3>
             </div>
-            
+            <!-- Сессии -->
             <div v-for="(sessions, date) in sessionsByDay" 
                 :key="date" 
                 class="day-session">
@@ -29,7 +31,7 @@
 
 <script setup>
 import { computed } from 'vue'
-
+// Пропсы
 const props = defineProps({
     movieId: { type: Number, required: true },
     title: { type: String, required: true },
@@ -39,7 +41,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['select-time'])
-
+// Сортировка
 const sortedSessionsByDay = computed(() => {
     const sortedKeys = Object.keys(props.sessionsByDay).sort()
     const sorted = {}
@@ -70,6 +72,7 @@ const handleSelectTime = (sessionId, date, time) => {
 </script>
 
 <style scoped>
+/* Стиль для карточки */
 .schedule-card {
     display: flex;
     gap: 25px;
@@ -79,11 +82,11 @@ const handleSelectTime = (sessionId, date, time) => {
     padding: 20px;
     transition: transform 0.2s;
 }
-
+/* Стиль карточки при наведении */
 .schedule-card:hover {
     transform: translateX(5px);
 }
-
+/* Стиль постера */
 .card-poster {
     flex-shrink: 0;
     width: 120px;
@@ -94,7 +97,7 @@ const handleSelectTime = (sessionId, date, time) => {
     border-radius: 8px;
     object-fit: cover;
 }
-
+/* Стиль информации о фильме */
 .card-info {
     flex: 1;
 }
@@ -122,7 +125,7 @@ const handleSelectTime = (sessionId, date, time) => {
     color: lightgray;
     margin-bottom: 8px;
 }
-
+/* Стиль кнопки с сессией */
 .time-buttons {
     display: flex;
     flex-wrap: wrap;

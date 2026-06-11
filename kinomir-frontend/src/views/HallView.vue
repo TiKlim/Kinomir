@@ -1,45 +1,44 @@
 <template>
     <MainLayout>
         <template #left>
+            <!-- Левая панель -->
             <div class="left-panel">
+                <!-- Лого -->
                 <AppLogo class="special-button" text-color="#00B2FF" font-size="46px">
                     <span class="logo-text">
                         КИН<img src="@/assets/theaters.svg" class="inline-icon">МИР
                     </span>
                 </AppLogo>
+                <!-- Кнопка -->
                 <AppButton class="app-button" @click="goBack">Назад</AppButton>
             </div>
         </template>
-
+        <!-- Центральная панель -->
         <template #center>
+            <!-- Заглушка -->
             <div v-if="loading" class="loading-state">Загрузка схемы зала...</div>
-            
+            <!-- Контент -->
             <div v-else-if="sessionInfo" class="hall-container">
                 <!-- Информация о сеансе -->
                 <div class="session-info">
                     <h2>{{ sessionInfo.hallName }}</h2>
                     <p>{{ formatDate(sessionInfo.sessionDate) }} | {{ sessionInfo.sessionTime }}</p>
                 </div>
-
                 <!-- Экран -->
                 <div class="screen-wrapper">
                     <div class="screen"></div>
                     <div class="screen-label">ЭКРАН</div>
                 </div>
-
                 <!-- Схема зала -->
                 <div class="seats-container">
-                    <div 
-                        v-for="row in rows" 
+                    <div v-for="row in rows" 
                         :key="row.number" 
                         class="seat-row">
                         <!-- Левая колонка с номером ряда -->
                         <div class="row-label left">Ряд {{ row.number }}</div>
-                        
                         <!-- Места в ряду -->
                         <div class="seats">
-                            <div 
-                                v-for="seat in row.seats" 
+                            <div v-for="seat in row.seats" 
                                 :key="seat.number"
                                 class="seat"
                                 :class="{
@@ -50,12 +49,10 @@
                                 {{ seat.number }}
                             </div>
                         </div>
-                        
                         <!-- Правая колонка с номером ряда -->
                         <div class="row-label right">Ряд {{ row.number }}</div>
                     </div>
                 </div>
-
                 <!-- Форма бронирования -->
                 <div v-if="selectedSeat" class="booking-form">
                     <h3>Бронирование места</h3>
@@ -74,7 +71,7 @@
                 </div>
             </div>
         </template>
-
+        <!-- Правая панель -->
         <template #right>
             <div class="right-panel">
                 <AppButton class="app-button" @click="goToMovies">Фильмы</AppButton>
@@ -87,16 +84,17 @@
 </template>
 
 <script setup>
+// Импорты
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import MainLayout from '@/components/layouts/MainLayout.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import AppLogo from '@/components/ui/AppLogo.vue'
-
+// Router
 const route = useRoute()
 const router = useRouter()
-
+// Константы
 const sessionId = route.query.sessionId
 console.log('sessionId из URL:', sessionId, 'тип:', typeof sessionId)
 const loading = ref(true)
@@ -106,7 +104,6 @@ const selectedSeat = ref(null)
 const userPhone = ref('')
 const userEmail = ref('')
 const bookingSuccess = ref(false)
-
 // Конфигурация зала (ряды и количество мест)
 const hallConfig = [
     { row: 1, seats: 8 },
@@ -117,7 +114,6 @@ const hallConfig = [
     { row: 6, seats: 12 },
     { row: 7, seats: 12 }
 ]
-
 // Генерация рядов с учётом занятых мест
 const rows = computed(() => {
     return hallConfig.map(rowConfig => {
@@ -141,12 +137,10 @@ const rows = computed(() => {
         }
     })
 })
-
 // Проверка, можно ли бронировать
 const canBook = computed(() => {
     return selectedSeat.value && userPhone.value && userEmail.value
 })
-
 // Загрузка информации о сеансе и занятых местах
 const loadSessionData = async () => {
     loading.value = true
@@ -154,7 +148,6 @@ const loadSessionData = async () => {
         // Загружаем информацию о сеансе (зал, дата, время)
         const sessionResponse = await axios.get(`http://localhost:5057/api/sessions/${sessionId}`)
         sessionInfo.value = sessionResponse.data
-        
         // Загружаем занятые места для этого сеанса
         const seatsResponse = await axios.get(`http://localhost:5057/api/bookings/session/${sessionId}`)
         bookedSeats.value = seatsResponse.data
@@ -165,7 +158,6 @@ const loadSessionData = async () => {
         loading.value = false
     }
 }
-
 // Выбор места
 const selectSeat = (row, seat, isAvailable) => {
     if (!isAvailable) return  // Нельзя выбрать занятое место
@@ -175,7 +167,6 @@ const selectSeat = (row, seat, isAvailable) => {
         selectedSeat.value = { row, number: seat }
     }
 }
-
 // Создание бронирования
 const createBooking = async () => {
     if (!canBook.value) return
@@ -202,13 +193,11 @@ const createBooking = async () => {
         alert('Не удалось забронировать место. Попробуйте ещё раз.')
     }
 }
-
 // Форматирование даты
 const formatDate = (dateString) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
 }
-
 // Навигация
 const goBack = () => router.back()
 const goToMovies = () => router.push('/movies')
@@ -220,12 +209,14 @@ onMounted(() => {
 })
 </script>
 
+/* Стили */
 <style scoped>
+/* Стиль контейнера */
 .hall-container {
     padding: 20px;
     color: white;
 }
-
+/* Стиль для информации о фильме */
 .session-info {
     text-align: center;
     margin-bottom: 30px;
@@ -240,7 +231,6 @@ onMounted(() => {
     color: white;
     font-size: 1rem;
 }
-
 /* Экран */
 .screen-wrapper {
     text-align: center;
@@ -261,7 +251,6 @@ onMounted(() => {
     font-size: 0.8rem;
     letter-spacing: 4px;
 }
-
 /* Схема зала */
 .seats-container {
     display: flex;
@@ -327,7 +316,6 @@ onMounted(() => {
     background: #00B2FF80;
     transform: scale(1.05);
 }
-
 /* Форма бронирования */
 .booking-form {
     max-width: 400px;
@@ -384,7 +372,6 @@ onMounted(() => {
     padding: 60px;
     font-size: 1.2rem;
 }
-
 /* Стили для левого меню */
 .left-panel {
     display: flex;
@@ -393,7 +380,6 @@ onMounted(() => {
     align-items: center;
     margin-top: 15px;
 }
-
 /* Стили для правой панели */
 .right-panel {
     color: white;

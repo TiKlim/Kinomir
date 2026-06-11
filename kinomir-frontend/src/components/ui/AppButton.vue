@@ -10,6 +10,8 @@ defineEmits(['click'])
 </script>
 
 <style scoped>
+
+/* Стиль кнопки */
 .app-button {
     background: #54535380;
     backdrop-filter: blur(4px);
@@ -22,9 +24,11 @@ defineEmits(['click'])
     width: 186px;
     height: 40px;
 }
+/* При наведении на кнопку */
 .app-button:hover {
     background: #6BD2FF80;
 }
+/* При нажатии на кнопку */
 .app-button:active {
     transform: scale(1.05);
     background: #00B2FF80;
