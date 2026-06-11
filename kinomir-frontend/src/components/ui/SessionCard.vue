@@ -9,8 +9,7 @@
                 <h3 class="movie-title">{{ title }} | {{ ageRating }}</h3>
             </div>
             
-            <div 
-                v-for="(sessions, date) in sessionsByDay" 
+            <div v-for="(sessions, date) in sessionsByDay" 
                 :key="date" 
                 class="day-session">
                 <div class="day-label">{{ formatDate(date) }}</div>

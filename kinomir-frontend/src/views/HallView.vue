@@ -237,7 +237,7 @@ onMounted(() => {
 }
 
 .session-info p {
-    color: #ccc;
+    color: white;
     font-size: 1rem;
 }
 
@@ -257,7 +257,7 @@ onMounted(() => {
 
 .screen-label {
     margin-top: 8px;
-    color: #888;
+    color: lightgray;
     font-size: 0.8rem;
     letter-spacing: 4px;
 }
@@ -281,7 +281,7 @@ onMounted(() => {
 .row-label {
     width: 60px;
     font-size: 0.8rem;
-    color: #aaa;
+    color: lightgray;
 }
 
 .row-label.left {
@@ -332,8 +332,7 @@ onMounted(() => {
 .booking-form {
     max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
+    padding: 8px;
     border-radius: 12px;
     text-align: center;
 }
@@ -356,13 +355,13 @@ onMounted(() => {
     display: block;
     margin-bottom: 5px;
     font-size: 0.9rem;
-    color: #ccc;
+    color: white;
 }
 
 .form-group input {
     width: 100%;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
+    background: #111111;
     border: 1px solid #333;
     border-radius: 6px;
     color: white;
