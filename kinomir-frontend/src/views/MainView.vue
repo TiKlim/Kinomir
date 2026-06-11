@@ -44,8 +44,8 @@
             <div class="right-panel">
                 <AppButton class="app-button" @click="goToMovies">Фильмы</AppButton>
                 <AppButton class="app-button" @click="goToSessions">Расписание</AppButton>
-                <AppButton class="app-button">Акции</AppButton>
-                <AppButton class="app-button">Новости</AppButton>
+                <AppButton class="app-button" @click="goToPromotions">Акции</AppButton>
+                <AppButton class="app-button" @click="goToNews">Новости</AppButton>
             </div>
         </template>
     </MainLayout>
@@ -92,6 +92,9 @@ const goToMovies = () => {
 const goToSessions = () => {
     router.push('/sessions')
 }
+
+const goToPromotions = () => router.push('/promotions')
+const goToNews = () => router.push('/news')
 
 onMounted(() => {
     loadMovies()
