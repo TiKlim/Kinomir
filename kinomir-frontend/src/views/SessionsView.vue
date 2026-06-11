@@ -38,15 +38,14 @@
 
             <!-- Список карточек расписания -->
             <div v-else class="schedule-list">
-                <SessionCard
-                    v-for="movie in schedule"
-                    :key="movie.movieId"
-                    :movie-id="movie.movieId"
-                    :title="movie.movieTitle"
-                    :poster-url="movie.moviePosterVertical"
-                    :age-rating="movie.movieAgeRaiting"
-                    :sessions-by-day="movie.sessionsByDay"
-                    @select-time="onSelectTime"/>
+                <SessionCard v-for="movie in schedule"
+                :key="movie.movieId"
+                :movie-id="movie.movieId"
+                :title="movie.movieTitle"
+                :poster-url="movie.moviePosterVertical"
+                :age-rating="movie.movieAgeRaiting"
+                :sessions-by-day="movie.sessionsByDay"
+                @select-time="onSelectTime"/>
             </div>
         </template>
 
@@ -54,8 +53,8 @@
             <div class="right-panel">
                 <AppButton class="app-button" @click="goToMovies">Фильмы</AppButton>
                 <AppButton disabled class="used-button">Расписание</AppButton>
-                <AppButton class="app-button">Акции</AppButton>
-                <AppButton class="app-button">Новости</AppButton>
+                <AppButton class="app-button" @click="goToPromotions">Акции</AppButton>
+                <AppButton class="app-button" @click="goToNews">Новости</AppButton>
             </div>
         </template>
     </MainLayout>
@@ -106,12 +105,16 @@ const loadTheaters = async () => {
     }
 }
 
-const onSelectTime = (sessionInfo) => {
-    router.push(`/booking?movieId=${sessionInfo.movieId}&date=${sessionInfo.date}&time=${sessionInfo.time}`)
+const onSelectTime = (sessionData) => {
+    console.log('SessionsView получил:', sessionData)
+    // sessionData = { sessionId: 21, date: "2026-04-12", time: "09:00" }
+    router.push(`/hall?sessionId=${sessionData.sessionId}&date=${sessionData.date}&time=${sessionData.time}`)
 }
 
 const goToMain = () => router.push('/')
 const goToMovies = () => router.push('/movies')
+const goToPromotions = () => router.push('/promotions')
+const goToNews = () => router.push('/news')
 
 onMounted(() => {
     loadTheaters()
@@ -120,6 +123,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+
 .schedule-header {
     padding: 20px;
     color: white;

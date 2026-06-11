@@ -10,17 +10,17 @@
             </div>
             
             <div 
-                v-for="(times, date) in sortedSessionsByDay" 
+                v-for="(sessions, date) in sessionsByDay" 
                 :key="date" 
                 class="day-session">
                 <div class="day-label">{{ formatDate(date) }}</div>
                 <div class="time-buttons">
                     <button 
-                        v-for="time in times" 
-                        :key="time" 
+                        v-for="session in sessions" 
+                        :key="session.sessionId"
                         class="time-btn"
-                        @click="onSelectTime(date, time)">
-                        {{ time }}
+                        @click="handleSelectTime(session.sessionId, date, session.time)">
+                        {{ session.time }}
                     </button>
                 </div>
             </div>
@@ -56,12 +56,16 @@ const formatDate = (dateString) => {
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
 }
 
-const onSelectTime = (date, time) => {
-    emit('select-time', {
-        movieId: props.movieId,
-        title: props.title,
-        date: date,
-        time: time
+const handleSelectTime = (sessionId, date, time) => {
+    console.log('Передаю в SessionsView:', { 
+        sessionId: Number(sessionId), 
+        date, 
+        time 
+    })
+    emit('select-time', { 
+        sessionId: Number(sessionId), 
+        date: date, 
+        time: time 
     })
 }
 </script>
