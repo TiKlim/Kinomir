@@ -47,7 +47,7 @@ public class MoviesController : ControllerBase
         return Ok(movie);
     }
     
-    // GET: api/movies/soon
+    // api/movies/soon
     [HttpGet("soon")]
     public async Task<ActionResult<IEnumerable<MovieDTO>>> GetSoonMovies()
     {
@@ -69,7 +69,7 @@ public class MoviesController : ControllerBase
         return soonMovies;
     }
     
-    // GET: api/movies/now
+    // api/movies/now
     [HttpGet("now")]
     public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesNow()
     {
