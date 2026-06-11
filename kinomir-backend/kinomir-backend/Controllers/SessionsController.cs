@@ -59,11 +59,33 @@ public class SessionsController : ControllerBase
                     .GroupBy(s => s.SessionDate.Value.ToString("yyyy-MM-dd"))
                     .ToDictionary(
                         dayGroup => dayGroup.Key,
-                        dayGroup => dayGroup.Select(s => s.SessionTime.Value.ToString("HH:mm")).ToList()
+                        dayGroup => dayGroup.Select(s => new SessionTimeWithId
+                        {
+                            Time = s.SessionTime.Value.ToString("HH:mm"),
+                            SessionId = s.SessionId
+                        }).ToList()
                     )
             })
             .ToList();
 
         return Ok(schedule);
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<object>> GetSession(int id)
+    {
+        var session = await _context.Sessions
+            .Include(s => s.SessionMovie)
+            .FirstOrDefaultAsync(s => s.SessionId == id);
+    
+        if (session == null) return NotFound();
+    
+        return Ok(new
+        {
+            session.SessionId,
+            session.SessionDate,
+            session.SessionTime,
+            HallName = $"Зал {session.SessionTheaterHall}"
+        });
     }
 }
