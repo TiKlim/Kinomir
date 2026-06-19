@@ -2,7 +2,16 @@ using kinomir_backend.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+// Сначала берём строку из переменной окружения
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
 
+// Если переменной нет — берём из appsettings.json (для локальной разработки)
+if (string.IsNullOrEmpty(connectionString))
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+
+// Регистрируем DbContext
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVueFrontend",
